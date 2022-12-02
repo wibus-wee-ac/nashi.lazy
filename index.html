@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nashi Lazy Plugin</title>
+</head>
+<body>
+
+  <div id="app">
+    <img src="https://via.placeholder.com/100" class="lazy" alt="">
+  </div>
+
+  <script type="module" src="/src/index.ts"></script>
+  <!-- <script src="https://unpkg.com/@akrc/nashi@latest/dist/legacy.js"></script> -->
+
+  <script>
+    var lazyConfig = {
+      root: "#app",
+      selector: ".lazy",
+      placeholder: "https://via.placeholder.com/300",
+      loaderAttr: "data-src",
+      throttle: 100,
+    }
+  </script>
+</body>
+</html>
