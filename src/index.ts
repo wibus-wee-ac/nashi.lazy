@@ -81,7 +81,11 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
 
   // Check whether the element is in the viewport 检查元素是否在视口内
   const isInViewport = (element: QueryResult) => {
-    const { top, left, bottom, right } = (element.node as unknown as Element).getBoundingClientRect();
+    if (element.length > 1 ) {
+      console.warn('The element is not unique');
+      return false;
+    } 
+    const { top, left, bottom, right } = element.node[0].getBoundingClientRect();
     const { innerHeight, innerWidth } = window;
     return (
       top >= 0 &&
