@@ -43,13 +43,19 @@
       "pre-commit": "lint-staged"
     }
   },
+  "bump": {
+    "leading": ["git pull --rebase", "npm run build"],
+    "trailing": ["npm publish --access=public"],
+    "changelog": true,
+    "publish": true
+  },
   "scripts": {
     "prepare": "husky install",
     "build": "unbuild",
     "dev": "unbuild --stub",
     "lint": "eslint .",
     "prepublishOnly": "pnpm build",
-    "release": "bumpp && npm publish",
+    "release": "bump",
     "start": "esno src/index.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
@@ -60,7 +66,7 @@
     "@innei-util/prettier": "0.8.2",
     "@innei/eslint-config-ts": "0.9.5",
     "@types/node": "18.11.10",
-    "bumpp": "8.2.1",
+    "bump-version": "^0.5.0",
     "eslint": "8.29.0",
     "esno": "0.16.3",
     "husky": "8.0.2",
@@ -75,6 +81,6 @@
     "vitest": "0.25.3"
   },
   "dependencies": {
-    "@akrc/nashi": "^0.2.2"
+    "@akrc/nashi": "^0.2.3"
   }
 }
