@@ -10,16 +10,23 @@ Nashi.Lazy is a library for lazy loading images. Powered by Nashi.
 
 ## Usage
 
+```html
+<!-- ...more? -->
+<img data-src="https://www.baidu.com/img/flexible/logo/pc/index.png?0" src="https://via.placeholder.com/300" class="lazy" alt="">
+<img data-src="https://www.baidu.com/img/flexible/logo/pc/index.png?1" src="https://via.placeholder.com/300" class="lazy" alt="">
+<!-- ...more? -->
+```
+
 ```js
 let lazyConfig = {
-  root: "#app", // root element, for listening scroll event
   selector: ".lazy", // selector for lazy loading
-  placeholder: "https://via.placeholder.com/300", // placeholder image
   loaderAttr: "data-src", // attribute for image source
   throttle: 100, // throttle time for scroll event, default 100ms
 };
 
 nashiLazy(lazyConfig);
+// or
+nashi.lazyimg(lazyConfig);
 ```
 
 ## Tips
@@ -28,6 +35,8 @@ nashiLazy will find a nashi instance automatically, if you want to use your own 
 
 ```js
 nashiLazy(lazyConfig, YourNashiInstance);
+// or
+nashi.lazyimg(lazyConfig);
 ```
 
 ## License
