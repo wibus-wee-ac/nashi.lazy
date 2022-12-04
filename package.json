@@ -44,8 +44,13 @@
     }
   },
   "bump": {
-    "leading": ["git pull --rebase", "npm run build"],
-    "trailing": ["npm publish --access=public"],
+    "leading": [
+      "git pull --rebase",
+      "npm run build"
+    ],
+    "trailing": [
+      "npm publish --access=public"
+    ],
     "changelog": true,
     "publish": true
   },
@@ -64,9 +69,9 @@
   "devDependencies": {
     "@innei-util/eslint-config-ts": "0.8.2",
     "@innei-util/prettier": "0.8.2",
+    "@innei/bump-version": "^1.5.0",
     "@innei/eslint-config-ts": "0.9.5",
     "@types/node": "18.11.10",
-    "bump-version": "^0.5.0",
     "eslint": "8.29.0",
     "esno": "0.16.3",
     "husky": "8.0.2",
