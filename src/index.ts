@@ -88,10 +88,13 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
     const { top, left, bottom, right } = element.node[0].getBoundingClientRect();
     const { innerHeight, innerWidth } = window;
     return (
-      top >= 0 &&
-      left >= 0 &&
-      bottom <= innerHeight &&
-      right <= innerWidth
+      (top > 0 && top < innerHeight) ||
+      (bottom > 0 && bottom < innerHeight) ||
+      (top < 0 && bottom > innerHeight)
+    ) && (
+      (left > 0 && left < innerWidth) ||
+      (right > 0 && right < innerWidth) ||
+      (left < 0 && right > innerWidth)
     );
   }
 
