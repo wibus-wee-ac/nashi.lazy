@@ -1,6 +1,6 @@
 {
   "name": "nashi-lazy",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "description": "nashi.lazy is a library for lazy loading images. Powered by nashi.",
   "author": "wibus-wee <wibus@qq.com>",
   "license": "AGPLv3",
