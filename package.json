@@ -48,9 +48,6 @@
       "git pull --rebase",
       "npm run build"
     ],
-    "trailing": [
-      "npm publish --access=public"
-    ],
     "changelog": true,
     "publish": true
   },
