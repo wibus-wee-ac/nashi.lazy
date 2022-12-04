@@ -128,6 +128,8 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
   return elements;
 }
 
-// Register the lazy function 注册lazy函数到 window
+// @ts-ignore
+window.nashi.lazyimg = nashiLazy;
+window.nashi.prototype.lazyimg = nashiLazy;
 window.nashiLazy = nashiLazy;
 window.nashi = nashi;
