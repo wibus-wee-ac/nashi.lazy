@@ -9,7 +9,6 @@
 import nashi, { Core, QueryResult } from '@akrc/nashi';
 
 interface ILazyConfig {
-  root: string; // 监听的根节点
   selector: string; // 需要懒加载的元素
   placeholder: string; // 占位图片
   loaderAttr: string; // loader属性
@@ -54,12 +53,10 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
   if (!elements.length) {
     throw new Error('No elements found');
   }
-  // Get the root element 获取根元素
-  const root = nashi(config.root);
   // Get the placeholder image 获取占位图片
   const placeholder = config.placeholder;
   // Clone the original src attribute of the element and save it to the loader attribute 将元素的原始src属性克隆并保存到loader属性
-  elements.each((element: QueryResult) => {
+  elements.forEach((element: QueryResult) => {
     element.attr(config.loaderAttr, element.attr('src'));
   });
   // Change the src attribute of the element to the placeholder image 将元素的src属性改为占位图片
@@ -87,6 +84,7 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
     } 
     const { top, left, bottom, right } = element.node[0].getBoundingClientRect();
     const { innerHeight, innerWidth } = window;
+    // 只要有一部分在视口内就算在视口内 If any part is in the viewport, it is considered to be in the viewport
     return (
       (top > 0 && top < innerHeight) ||
       (bottom > 0 && bottom < innerHeight) ||
@@ -111,22 +109,20 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
   const lazyLoad = throttle(() => {
     elements.each((element: QueryResult) => {
       if (isInViewport(element)) {
-        // [DEV]
-        console.log('load, ', element);
         loadImage(element);
       } 
     });
   }, config.throttle);
 
   // Listen to the scroll event 监听滚动事件
-  root.on('scroll', lazyLoad);
+  window.addEventListener('scroll', lazyLoad);
 
   lazyLoad(); // Trigger the scroll event once 触发一次滚动事件
-  root.on('resize', lazyLoad); // Listen to the resize event 监听resize事件
-  root.on('load', lazyLoad); // Listen to the load event 监听load事件
-  root.on('DOMContentLoaded', lazyLoad); // Listen to the DOMContentLoaded event 监听DOMContentLoaded事件
-  root.on('readystatechange', lazyLoad); // Listen to the readystatechange event 监听readystatechange事件
-  root.on('pageshow', lazyLoad); // Listen to the pageshow event 监听pageshow事件
+  window.addEventListener('resize', lazyLoad); // Listen to the resize event 监听resize事件
+  window.addEventListener('load', lazyLoad); // Listen to the load event 监听load事件
+  window.addEventListener('DOMContentLoaded', lazyLoad); // Listen to the DOMContentLoaded event 监听DOMContentLoaded事件
+  window.addEventListener('readystatechange', lazyLoad); // Listen to the readystatechange event 监听readystatechange事件
+  window.addEventListener('pageshow', lazyLoad); // Listen to the pageshow event 监听pageshow事件
 
   // Return the elements that need to be lazy loaded 返回需要懒加载的元素
   return elements;
