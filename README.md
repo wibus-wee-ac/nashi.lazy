@@ -39,12 +39,6 @@ nashiLazy(lazyConfig, YourNashiInstance);
 nashi.lazyimg(lazyConfig);
 ```
 
-## License
-
-此项目 MIT 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
-
-This project is MIT licensed, and the secondary creation or derivative project using this project must also be open source.
-
 ## Author
 
 Nashi.Lazy © Wibus, Released under the MIT License.
