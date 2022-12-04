@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-07-01 19:50:24
  * Coding With IU
  */
-import nashi, { Core, QueryResult } from '@akrc/nashi';
+import { Core, QueryResult } from '@akrc/nashi';
 
 interface ILazyConfig {
   selector: string; // 需要懒加载的元素
@@ -21,7 +21,7 @@ interface ILazyConfig {
  * @param nashi nashi 实例
  * @param config 配置
  */
-export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
+function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
 
   if (!nashi) {
     if (!window.nashi) {
@@ -53,15 +53,7 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
   if (!elements.length) {
     throw new Error('No elements found');
   }
-  // Get the placeholder image 获取占位图片
-  const placeholder = config.placeholder;
-  // Clone the original src attribute of the element and save it to the loader attribute 将元素的原始src属性克隆并保存到loader属性
-  elements.forEach((element: QueryResult) => {
-    element.attr(config.loaderAttr, element.attr('src'));
-  });
-  // Change the src attribute of the element to the placeholder image 将元素的src属性改为占位图片
-  elements.attr('src', placeholder);
-
+  
   // Through the throttle function, the scroll event is triggered once every 100 milliseconds 通过节流函数，每隔100毫秒触发一次滚动事件
   const throttle = (fn: Function, delay: number) => {
     let timer: any = null;
@@ -98,6 +90,7 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
 
   // Load the image 加载图片
   const loadImage = (element: QueryResult) => {
+    if (element.attr('src') === element.attr(config.loaderAttr)) return;
     const image = new Image();
     image.src = element.attr(config.loaderAttr);
     image.onload = () => {
@@ -120,9 +113,6 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
   lazyLoad(); // Trigger the scroll event once 触发一次滚动事件
   window.addEventListener('resize', lazyLoad); // Listen to the resize event 监听resize事件
   window.addEventListener('load', lazyLoad); // Listen to the load event 监听load事件
-  window.addEventListener('DOMContentLoaded', lazyLoad); // Listen to the DOMContentLoaded event 监听DOMContentLoaded事件
-  window.addEventListener('readystatechange', lazyLoad); // Listen to the readystatechange event 监听readystatechange事件
-  window.addEventListener('pageshow', lazyLoad); // Listen to the pageshow event 监听pageshow事件
 
   // Return the elements that need to be lazy loaded 返回需要懒加载的元素
   return elements;
@@ -132,4 +122,3 @@ export function nashiLazy(config: ILazyConfig, nashi?: Core): QueryResult {
 window.nashi.lazyimg = nashiLazy;
 window.nashi.prototype.lazyimg = nashiLazy;
 window.nashiLazy = nashiLazy;
-window.nashi = nashi;
